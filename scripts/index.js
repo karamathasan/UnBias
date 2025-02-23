@@ -1,12 +1,17 @@
-document.getElementById('toggleSwitch').addEventListener('change', function() {
-    const toggleStatus = this.checked;
-    
-    // Here, you can handle what happens when the toggle is on/off
-    if (toggleStatus) {
-        console.log("Bias Detection Enabled");
-        // Insert logic to enable bias detection (e.g., enabling text highlighting or triggering the detection functionality)
-    } else {
-        console.log("Bias Detection Disabled");
-        // Insert logic to disable bias detection
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('toggleButton');
+    console.log("Popup loaded");
+
+    // Load the saved toggle state from chrome storage
+    chrome.storage.local.get('biasDetectionEnabled', (result) => {
+        const biasDetectionEnabled = result.biasDetectionEnabled || false;
+        toggleButton.checked = biasDetectionEnabled;
+    });
+
+    // When the toggle is changed, save the state to chrome storage
+    toggleButton.addEventListener('change', () => {
+        const toggleStatus = toggleButton.checked;
+        // Save the toggle status in chrome storage
+        chrome.storage.local.set({ 'biasDetectionEnabled': toggleStatus });
+    });
 });
