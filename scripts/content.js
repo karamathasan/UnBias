@@ -8,9 +8,10 @@ document.addEventListener('mouseup', function () {
 
         // Create the popup if not already created
         let popup = document.getElementById('text-popup');
-        let button = document.createElement('button');
         if (!popup) {
             popup = document.createElement('div');
+            let textContainer = document.createElement('div'); // New element for text
+            let button = document.createElement('button');
 
             popup.id = 'text-popup';
             popup.style.position = 'absolute';
@@ -21,36 +22,51 @@ document.addEventListener('mouseup', function () {
             popup.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.1)';
             popup.style.zIndex = '1000';
 
+            // Text container styles
+            textContainer.id = 'popup-text';
+            textContainer.style.marginBottom = '10px';
+
             // Button styles
             button.id = "button";
-            button.textContent = "Click Me";  // Set the text of the button
-            button.style.padding = "10px 20px";  // Padding inside the button
-            button.style.fontSize = "16px";  // Font size
-            button.style.border = "none";  // Remove default border
-            button.style.borderRadius = "5px";  // Rounded corners
-            button.style.cursor = "pointer";  // Show pointer on hover
+            button.textContent = "Click Me";
+            button.style.padding = "10px 20px";
+            button.style.fontSize = "16px";
+            button.style.border = "none";
+            button.style.borderRadius = "5px";
+            button.style.cursor = "pointer";
             button.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.1)";
 
+            // Add text and button to popup
+            popup.appendChild(textContainer);
             popup.appendChild(button);
 
+            // Add the popup to the body
             document.body.appendChild(popup);
         }
-        
-        popup.textContent = `Check for Bias?`;
-        popup.appendChild(button); // Add the button again to preserve it
+
+        // Update only the text content
+        const textContainer = document.getElementById('popup-text');
+        textContainer.textContent = `Selected Text: ${selectedText}`;
+
+        // Position the popup near the selection
+        popup.style.display = 'flex'; // Flexbox layout
+        popup.style.flexDirection = 'row'; // Horizontal layout
+        popup.style.alignItems = 'center'; // Align items vertically
+        popup.style.gap = '10px'; // Space between items
 
         popup.style.left = `${rect.right + window.scrollX}px`;
-        popup.style.top = `${rect.top + window.scrollY - popup.offsetHeight - 5}px`; // Position above the selection
-        popup.style.display = 'block';
+        popup.style.top = `${rect.top + window.scrollY - popup.offsetHeight - 5}px`;
+        // popup.style.display = 'block';
     }
 });
 
-// document.addEventListener('mousedown', function (e) {
-//     const popup = document.getElementById('text-popup');
-//     if (popup && !popup.contains(e.target)) {
-//         popup.remove();
-//     }
-// });
+// deselect
+document.addEventListener('mousedown', function (e) {
+    const popup = document.getElementById('text-popup');
+    if (popup && !popup.contains(e.target)) {
+        popup.remove();
+    }
+});
 // // Function to get the highlighted text from the webpage
 // function getHighlightedText() {
 //     const selection = window.getSelection();
