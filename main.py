@@ -25,6 +25,7 @@ MODEL_MAPPING = {
     "bias": "d4data/bias-detection-model",
     "toxicity": "unitary/toxic-bert",
     "hate_speech": "Hate-speech-CNERG/dehatebert-mono-english",
+    "default": "distilbert-base-uncased-finetuned-sst-2-english"
 }
 
 def preprocess_text(text):
@@ -46,7 +47,14 @@ def classify_text(text):
     """
     try:
         # Create a prompt for classification
-        prompt = f"Classify the following text into one of these categories: sentiment, bias, toxicity, hate_speech. Text: {text}"
+        prompt = f"""Classify the following text into one of these categories: "sentiment", "bias", "toxicity", "hate_speech". 
+        If the text cannot be classified then choose the word "default."  
+        classify the text with just one of these words and nothing else - No extra description is needed, simply choose one and output that. 
+        If the sentence seems to be entirely opinion based and seems to insult something, this can be classified as "toxic"
+        If the sentence has to do anything with 'feeling like' or emotions to justify something than this can be classified as "sentiment"
+        if the sentence is a vague and broadly claims something this can be classified as "bias"
+        If the sentence is highly discriminatory and targets a specific group of people or ethnicity then this can be classified as "hate_speech"
+        the text you willl classify is: {text}"""
         
         # Send the prompt to the general-purpose LLM
         response = general_llm_api(inputs=prompt)
@@ -138,74 +146,3 @@ def analyze_text():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-# from flask import Flask, request, jsonify
-# from huggingface_hub import InferenceApi
-# import os
-# import re
-# from flask_cors import CORS
-
-# # Initialize Flask app
-# app = Flask(__name__)
-# CORS(app)
-
-# # Set Hugging Face token (store this in a safe environment variable or a config file)
-# HF_TOKEN = os.getenv("HF_TOKEN")
-
-# # Use Hugging Face Inference API for a bias detection model
-# inference_api = InferenceApi(repo_id="d4data/bias-detection-model", token=HF_TOKEN)
-
-# def preprocess_text(text):
-#     # Remove unnecessary words or phrases
-#     text = text.lower()
-#     text = re.sub(r"[^a-zA-Z0-9\s]", "", text)
-#     text = re.sub(r"\s+", " ", text).strip()
-#     return text
-
-# # Function to handle bias detection
-# def get_bias_detection_result(text):
-#     try:
-#         # Send the text to Hugging Face API for bias detection
-#         preprocessed = preprocess_text(text)
-#         response = inference_api(inputs=preprocessed)
-
-#         print("Hugging Face API Response:", response)
-
-#         # The API response will contain the label and score
-#         return response
-#     except Exception as e:
-#         return {"error": str(e)}
-
-# @app.route('/analyze', methods=['POST'])
-# def analyze_bias():
-#     # Get the highlighted text from the request
-#     highlighted_text = request.json.get('text', '')
-
-#     if not highlighted_text:
-#         return jsonify({"error": "No highlighted text provided"}), 400
-
-#     # Perform bias detection
-#     result = get_bias_detection_result(highlighted_text)
-
-#     print("API Response:", result)
-
-#     # Determine if the text is biased or not
-#     if isinstance(result, list) and len(result) > 0 and "label" in result[0]:
-#         bias_label = result[0]['label']  # e.g., "biased" or "non-biased"
-#         bias_score = result[0]['score']  # Confidence score
-#     else:
-#         return jsonify({"error": "Unexpected API response", "raw_output": result}), 500
-
-#     # Return the result as a JSON response
-#     return jsonify({
-#         "bias": bias_label,
-#         "confidence": bias_score,
-#         "raw_output": result
-#     })
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
