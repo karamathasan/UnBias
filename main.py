@@ -146,34 +146,3 @@ def analyze_text():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-# from flask import Flask, request, jsonify
-# from transformers import pipeline
-# import json
-# from flask_cors import CORS
-
-# # Initialize the Flask app and sentiment analysis model
-# app = Flask(__name__)
-# CORS(app, resources={r"/*": {"origins": "*"}})
-# classifier = pipeline("sentiment-analysis")
-
-# @app.route('/analyze', methods=['POST'])
-# def analyze_sentiment():
-#     # Get the highlighted text from the request
-#     highlighted_text = request.json.get('text', '')
-
-#     # Run sentiment analysis
-#     result = classifier(highlighted_text)
-
-#     # Save the result to a file
-#     with open("result.json", "w") as result_json:
-#         json.dump(result, result_json, indent=4)
-
-#     # Return the result as a JSON response
-#     return jsonify(result)
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
