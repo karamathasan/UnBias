@@ -25,6 +25,7 @@ MODEL_MAPPING = {
     "bias": "d4data/bias-detection-model",
     "toxicity": "unitary/toxic-bert",
     "hate_speech": "Hate-speech-CNERG/dehatebert-mono-english",
+    "default": "distilbert-base-uncased-finetuned-sst-2-english"
 }
 
 def preprocess_text(text):
@@ -46,7 +47,10 @@ def classify_text(text):
     """
     try:
         # Create a prompt for classification
-        prompt = f"Classify the following text into one of these categories: sentiment, bias, toxicity, hate_speech. Text: {text}"
+        prompt = f"""Classify the following text into one of these categories: "sentiment", "bias", "toxicity", "hate_speech". 
+        If the text cannot be classified then choose the word "default."  
+        classify the text with just one of these words and nothing else - No extra description is needed, simply choose one and output that. 
+        the text you willl classify is: {text}"""
         
         # Send the prompt to the general-purpose LLM
         response = general_llm_api(inputs=prompt)
