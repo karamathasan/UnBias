@@ -5,9 +5,9 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f9; /* Soft light gray background */
-    color: #333;
+    font-family: 'Loto',Elsie ; /* Cute, rounded font */
+    background-color: #d8f7ffdd; /* Light cream background */
+    color: #d1fdff; /* Soft black text */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,35 +17,38 @@ body {
 
 .container {
     text-align: center;
-    background: #ffffff; /* Clean white background */
-    border-radius: 10px;
+    background-color: #dbf2ff; /* Soft peach background */
+    border-radius: 12px; /* Rounded corners */
     padding: 40px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    max-width: 350px;
-    width: 100%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 320px;
+    height: 320px;
+    border: 1px solid #000000; /* Subtle peach border */
 }
 
 h1 {
-    font-size: 32px;
-    color: #4A90E2; /* Calm blue color */
+    font-size: 30px;
+    color: #131318; /* Soft black for heading */
     margin-bottom: 20px;
     font-weight: 600;
+    letter-spacing: 1px;
 }
 
 p {
     font-size: 16px;
-    color: #777; /* Subtle gray text */
+    color: #101013; /* Soft gray for paragraph */
     margin-bottom: 30px;
     font-weight: 300;
+    line-height: 1.6;
 }
 
 .toggle-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     font-size: 16px;
-    color: #555;
+    color: #1cfc72; /* Soft gray for text */
 }
 
 .switch {
@@ -68,7 +71,7 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #ddd; /* Light gray toggle background */
     transition: 0.3s;
     border-radius: 34px;
 }
@@ -85,11 +88,62 @@ p {
     transition: 0.3s;
 }
 
-/* When the checkbox is checked, move the slider */
+/* When the checkbox is checked, change background and button color */
 input:checked + .slider {
-    background-color: #4A90E2; /* Calm blue when active */
+    background-color: #5ee37d; /* Blue when active */
 }
 
 input:checked + .slider:before {
-    transform: translateX(26px); /* Move the circle to the right */
+    transform: translateX(26px);
 }
+
+.toggle-container span {
+    font-size: 14px;
+    color: #333; /* Darker gray text for label */
+}
+/* Dark Circle Doodle */
+.doodle-dark {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 35px;
+    background-color: #333; /* Dark color */
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Star Doodle (SVG) */
+.star-doodle-dark {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Dark Heart Icon using FontAwesome */
+.doodle-icon-dark {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 30px;
+    color: #333; /* Dark color */
+}
+
+/* Dotted Line Doodle */
+
+
+
+.container::after {
+    content: "✿"; /* Flower doodle */
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 25px;
+    color: #333; /* Dark color */
+}
+
+
+

@@ -102,4 +102,34 @@ function sendToPythonServer(highlightedText) {
     });
 }
 
+// Store event listener globally so it can be removed properly
+let handleMouseUp = function(event) {
+    let selectedText = window.getSelection().toString().trim();
+    if (selectedText) {
+        console.log("Selected text:", selectedText);
+        // Your highlighting logic here
+    }
+};
 
+// Function to enable detection
+function enableBiasDetection() {
+    console.log("Bias Detection Enabled");
+    document.addEventListener("mouseup", handleMouseUp);
+}
+
+//  Function to disable detection
+function disableBiasDetection() {
+    console.log("Bias Detection Disabled");
+    document.removeEventListener("mouseup", handleMouseUp);
+}
+
+// Listen for messages from background.js
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "ENABLE_DETECTION") {
+        enableBiasDetection();
+        sendResponse({ status: "enabled" });
+    } else if (message.action === "DISABLE_DETECTION") {
+        disableBiasDetection();
+        sendResponse({ status: "disabled" });
+    }
+});

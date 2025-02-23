@@ -3,14 +3,15 @@
   "description": "",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions":["activeTab", "scripting"],
+  "permissions":["activeTab", "scripting","storage","tabs"],
   "background":{
     "service_worker":"scripts/background.js"
   },
   "content_scripts":[
     {
       "matches":["<all_urls>"],
-      "js":["scripts/content.js"]
+      "js":["scripts/content.js"],
+      "run_at": "document_idle"
     }
   ],
   "action": {
