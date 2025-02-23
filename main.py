@@ -37,8 +37,11 @@ def analyze_sentiment():
     # Perform bias detection or sentiment analysis with Hugging Face
     result = get_bias_detection_result(highlighted_text)
 
+    # determine if biased or not
+    bias_label = "yes" if result[0]['label'] in ["toxic", "biased"] else "no"
+
     # Return the result as a JSON response
-    return jsonify(result)
+    return jsonify({"bias": bias_label, "raw_output": result})
 
 if __name__ == "__main__":
     app.run(debug=True)
