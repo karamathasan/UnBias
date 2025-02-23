@@ -36,7 +36,7 @@ document.addEventListener('mouseup', function () {
             document.body.appendChild(popup);
         }
         
-        popup.textContent = `Selected Text: ${selectedText}`;
+        popup.textContent = `Check for Bias?`;
         popup.appendChild(button); // Add the button again to preserve it
 
         popup.style.left = `${rect.right + window.scrollX}px`;
@@ -45,17 +45,28 @@ document.addEventListener('mouseup', function () {
     }
 });
 
-document.addEventListener('mousedown', function (e) {
-    const popup = document.getElementById('text-popup');
-    if (popup && !popup.contains(e.target)) {
-        popup.remove();
-    }
-});
-// Function to get the highlighted text from the webpage
-function getHighlightedText() {
-    const selection = window.getSelection();
-    return selection.toString().trim(); // Retrieve and trim the highlighted text
-}
+// document.addEventListener('mousedown', function (e) {
+//     const popup = document.getElementById('text-popup');
+//     if (popup && !popup.contains(e.target)) {
+//         popup.remove();
+//     }
+// });
+// // Function to get the highlighted text from the webpage
+// function getHighlightedText() {
+//     const selection = window.getSelection();
+//     return selection.toString().trim(); // Retrieve and trim the highlighted text
+// }
+
+// Example usage: When the user highlights text and clicks a button, you can call this function
+// document.addEventListener("mouseup", () => {
+//     const highlightedText = getHighlightedText();
+//     if (highlightedText) {
+//         // Send the highlighted text to the background or content script (depending on how you set up the extension)
+//         sendToPythonServer(highlightedText);
+//     } else {
+//         console.log("No text highlighted.");
+//     }
+// });
 
 // send to python server
 function sendToPythonServer(highlightedText) {
@@ -75,13 +86,4 @@ function sendToPythonServer(highlightedText) {
     });
 }
 
-// Example usage: When the user highlights text and clicks a button, you can call this function
-document.addEventListener("mouseup", () => {
-    const highlightedText = getHighlightedText();
-    if (highlightedText) {
-        // Send the highlighted text to the background or content script (depending on how you set up the extension)
-        sendToPythonServer(highlightedText);
-    } else {
-        console.log("No text highlighted.");
-    }
-});
+
