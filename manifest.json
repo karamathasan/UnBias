@@ -3,7 +3,7 @@
   "description": "",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions":["activeTab", "scripting","storage","tabs"],
+  "permissions":["activeTab", "scripting", "storage"],
   "background":{
     "service_worker":"scripts/background.js"
   },
