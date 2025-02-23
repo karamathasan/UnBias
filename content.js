@@ -23,7 +23,7 @@ function sendToPythonServer(highlightedText) {
 }
 
 // Example usage: When the user highlights text and clicks a button, you can call this function
-document.addEventListener("mouseup", () => {
+document.getElementById("analyzeButton").addEventListener("click", () => {
     const highlightedText = getHighlightedText();
     if (highlightedText) {
         // Send the highlighted text to the background or content script (depending on how you set up the extension)
