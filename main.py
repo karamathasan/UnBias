@@ -50,6 +50,10 @@ def classify_text(text):
         prompt = f"""Classify the following text into one of these categories: "sentiment", "bias", "toxicity", "hate_speech". 
         If the text cannot be classified then choose the word "default."  
         classify the text with just one of these words and nothing else - No extra description is needed, simply choose one and output that. 
+        If the sentence seems to be entirely opinion based and seems to insult something, this can be classified as "toxic"
+        If the sentence has to do anything with 'feeling like' or emotions to justify something than this can be classified as "sentiment"
+        if the sentence is a vague and broadly claims something this can be classified as "bias"
+        If the sentence is highly discriminatory and targets a specific group of people or ethnicity then this can be classified as "hate_speech"
         the text you willl classify is: {text}"""
         
         # Send the prompt to the general-purpose LLM
