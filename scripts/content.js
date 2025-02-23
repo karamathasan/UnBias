@@ -8,9 +8,7 @@ async function getBiasDetectionEnabled() {
 
 document.addEventListener('mouseup', function () {
     const selectedText = window.getSelection().toString().trim();
-
     getBiasDetectionEnabled().then((biasDetectionEnabled)=>{
-        console.log(biasDetectionEnabled)
         if (selectedText && biasDetectionEnabled) {
             // Get the selection's bounding rectangle
             const selection = window.getSelection();
@@ -61,13 +59,14 @@ document.addEventListener('mouseup', function () {
     
             // Update only the text content
             const textContainer = document.getElementById('popup-text');
-            textContainer.textContent = `Selected Text: ${selectedText}`;
+            // textContainer.textContent = `Selected Text: ${selectedText}`;
+            textContainer.textContent = `Check for Bias`;
     
             // Position the popup near the selection
             popup.style.display = 'flex'; // Flexbox layout
             popup.style.flexDirection = 'row'; // Horizontal layout
             popup.style.alignItems = 'center'; // Align items vertically
-            popup.style.gap = '10px'; // Space between items
+            popup.style.gap = '20px'; // Space between items
     
             popup.style.left = `${rect.right + window.scrollX}px`;
             popup.style.top = `${rect.top + window.scrollY - popup.offsetHeight - 5}px`;
